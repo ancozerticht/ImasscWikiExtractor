@@ -11,15 +11,15 @@ class HierarchyReconstructor(private val headerTagName: String) {
         val rangesOfGroup = (headerIndexes zip headerIndexes.drop(1).plus(contents.size))
             .map { (start, endExclusive) -> start until endExclusive }
 
-        val contentsGroupedByIdx = contents
+        val contentsGroupedByHeader = contents
             .withIndex()
             .filter { !it.value.`is`(headerTagName) }
             .groupBy { (idx, _) ->
-                rangesOfGroup.find { range -> idx in range }?.start
+                rangesOfGroup.find { range -> idx in range }
             }
-            .mapValues { it.value.map { indexedValue -> indexedValue.value } }
-        return contentsGroupedByIdx
-            .mapKeys { it.key?.let { idx -> contents[idx] } }
+            .mapKeys { it.key?.start?.let { idx -> contents[idx] } }
+            .mapValues { it.value.map(IndexedValue<Element>::value) }
+        return contentsGroupedByHeader
             .filterKeys { it != null }
             .mapKeys { it.key!! }
     }

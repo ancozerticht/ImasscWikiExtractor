@@ -1,6 +1,6 @@
 package com.hatenablog.ancozerticht
 
-import com.hatenablog.ancozerticht.entity.ItemOfSupportSkillQuickList
+import com.hatenablog.ancozerticht.entity.SupportSkill
 import com.hatenablog.ancozerticht.translator.HierarchyReconstructor
 import com.hatenablog.ancozerticht.translator.MissingCellComplementor
 import org.jsoup.nodes.Element
@@ -13,58 +13,59 @@ class SupportSkillQuickListDownloader() {
     @GET
     @Produces("text/csv")
     fun download(): String {
-        val document = HtmlFetcher.fetch() ?: return ""
-        val contents = document.select("#content").first()?.children() ?: return ""
-
-        val reconstructorWithH2 = HierarchyReconstructor("h2")
-        val contentsGroupedByHeader = reconstructorWithH2.reconstruct(contents)
-
-        val contentsOfSupportSkillQuickChart = getSupportSkillQuickList(contentsGroupedByHeader)
+        val contents = fetch()
+        val contentsGroupedByHeader = reconstruct(contents)
+        val supportSkillQuickChart = getSupportSkillQuickList(contentsGroupedByHeader)
         return "レアリティ,カード名,絆,マスタリ,お休み,体力,トラブル,約束\n" +
-                contentsOfSupportSkillQuickChart
+                supportSkillQuickChart
                     .map { getCsvRow(it) }
                     .reduce { acc, s -> acc + "\n" + s }
     }
 
-    private fun getSupportSkillQuickList(contentsGroupedByHeader: Map<Element, List<Element>>): List<ItemOfSupportSkillQuickList> {
-        val keyOfSupportSkillQuickChart = contentsGroupedByHeader.keys
+    private fun fetch(): List<Element> {
+        val document = HtmlFetcher.fetch()
+        val content = document.selectFirst("#content") ?: return emptyList()
+        return content.children()
+    }
+
+    private fun reconstruct(contents: List<Element>): Map<Element, List<Element>> {
+        val reconstructor = HierarchyReconstructor("h2")
+        return reconstructor.reconstruct(contents)
+    }
+
+    private fun getSupportSkillQuickList(contentsGroupedByHeader: Map<Element, List<Element>>): List<SupportSkill> {
+        val key = contentsGroupedByHeader.keys
             .first { it.text().startsWith("サポートスキル早見表") }
-        val supportSkillQuickChart = contentsGroupedByHeader[keyOfSupportSkillQuickChart]
-            ?.filter { it.hasClass("accordion-container") }
-            ?: return emptyList()
-        return supportSkillQuickChart
-            .map {
-                Pair(
-                    it.selectFirst("h3"),
-                    it.selectFirst("tbody").children()
-                        .filter { tr ->
-                            tr.children().any { item -> item.`is`("td") }
-                        }
-                )
+        val quickChart = contentsGroupedByHeader.getOrElse(key, ::emptyList)
+            .filter { it.hasClass("accordion-container") }
+        return quickChart
+            .map { Pair(getChartHead(it), getChartBody(it)) }
+            .flatMap { (head, body) ->
+                body.map { Pair(head, it) }
             }
             .map { (head, body) ->
-                Pair(head, MissingCellComplementor().complement(body))
-            }
-            .map { (head, body) ->
-                Pair(head.text().trim(), body.map { row -> row.children().map { it.text().trim() } })
-            }
-            .flatMap { (rarity, rows) ->
-                rows.map { row ->
-                    ItemOfSupportSkillQuickList(
-                        rarity,
-                        row[0],
-                        row[1],
-                        row[2],
-                        row[3],
-                        row[4],
-                        row[5],
-                        row[6]
-                    )
-                }
+                SupportSkill(head, body[0], body[1], body[2], body[3], body[4], body[5], body[6])
             }
     }
 
-    private fun getCsvRow(row: ItemOfSupportSkillQuickList): String {
+    private fun getChartHead(chart: Element): String {
+        val head = chart.selectFirst("h3") ?: return ""
+        return head.text().trim()
+    }
+
+    private fun getChartBody(chart: Element): List<List<String>> {
+        val body = chart.selectFirst("tbody") ?: return emptyList()
+        val rows = body.children().filter { tr ->
+            tr.children().any { it.`is`("td") }
+        }
+        val complementor = MissingCellComplementor()
+        val rowsComplemented = complementor.complement(rows)
+        return rowsComplemented.map { row ->
+            row.children().map { it.text().trim() }
+        }
+    }
+
+    private fun getCsvRow(row: SupportSkill): String {
         return row.rarity + "," + row.cardName + "," + row.link + "," +
                 row.mastery + "," + row.rest + "," + row.strength + "," +
                 row.trouble + "," + row.promise

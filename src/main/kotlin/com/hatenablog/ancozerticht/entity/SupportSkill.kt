@@ -1,6 +1,6 @@
 package com.hatenablog.ancozerticht.entity
 
-data class ItemOfSupportSkillQuickList(
+data class SupportSkill(
     val rarity: String,
     val cardName: String,
     val link: String,
