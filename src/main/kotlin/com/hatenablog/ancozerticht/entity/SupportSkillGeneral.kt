@@ -1,6 +1,6 @@
 package com.hatenablog.ancozerticht.entity
 
-data class SupportSkill(
+data class SupportSkillGeneral(
     val rarity: String,
     val cardName: String,
     val link: String,

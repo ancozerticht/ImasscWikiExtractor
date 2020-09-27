@@ -1,9 +1,9 @@
 package com.hatenablog.ancozerticht.converter
 
-import com.hatenablog.ancozerticht.entity.SupportSkill
+import com.hatenablog.ancozerticht.entity.SupportSkillGeneral
 
-class SupportSkillGeneralConverter: ChartElementConverter<SupportSkill> {
-    override fun convert(head: String, body: List<String>): SupportSkill {
-        return SupportSkill(head, body[1], body[6], body[8], body[10], body[12], body[14])
+class SupportSkillGeneralConverter: ChartElementConverter<SupportSkillGeneral> {
+    override fun convert(head: String, body: List<String>): SupportSkillGeneral {
+        return SupportSkillGeneral(head, body[1], body[6], body[8], body[10], body[12], body[14])
     }
 }

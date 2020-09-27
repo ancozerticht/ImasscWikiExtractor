@@ -6,7 +6,7 @@ import com.hatenablog.ancozerticht.translator.MissingCellComplementor
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class SupportSkillListGenerator<T>(
+class SupportSkillListGeneratorA<T>(
     private val document: Document, private val chartTitle: String,
     private val converter: ChartElementConverter<T>
 ) {
