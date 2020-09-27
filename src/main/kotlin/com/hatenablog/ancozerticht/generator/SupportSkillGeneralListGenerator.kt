@@ -19,14 +19,14 @@ class SupportSkillGeneralListGenerator(private val document: Document) {
     }
 
     private fun getSupportSkillQuickList(contentsGroupedByHeader: Map<Element, List<Element>>): List<SupportSkill> {
-        val key = contentsGroupedByHeader.keys
-            .first { it.text().startsWith("サポートスキル逆引き") }
-        val quickChart = contentsGroupedByHeader.getOrElse(key, ::emptyList)
-            .filter { it.hasClass("accordion-container") }
-            .first { it.text().startsWith("アイドルの絆・約束リカバー・おやすみブースト・トラブルガード・体力サポート") }
-            .selectFirst(".accordion-content")
-            .children()
-        return quickChart
+        val supportSkillChart = contentsGroupedByHeader.entries
+            .firstOrNull { it.key.text().startsWith("サポートスキル逆引き") }?.value
+            ?.firstOrNull { it.text().startsWith("アイドルの絆・約束リカバー・おやすみブースト・トラブルガード・体力サポート") }
+            ?: return emptyList()
+        val chartList = supportSkillChart
+            .selectFirst(".accordion-container")
+            ?.children() ?: return emptyList()
+        return chartList
             .map { Pair(getChartHead(it), getChartBody(it)) }
             .flatMap { (head, body) ->
                 body.map { Pair(head, it) }
