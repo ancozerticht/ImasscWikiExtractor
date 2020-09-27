@@ -2,7 +2,7 @@ package com.hatenablog.ancozerticht
 
 import com.hatenablog.ancozerticht.converter.SupportSkillGeneralConverter
 import com.hatenablog.ancozerticht.entity.SupportSkill
-import com.hatenablog.ancozerticht.generator.SupportSkillGeneralListGenerator
+import com.hatenablog.ancozerticht.generator.SupportSkillListGenerator
 import java.net.URI
 import javax.ws.rs.GET
 import javax.ws.rs.Path
@@ -18,7 +18,7 @@ class SupportSkillGeneralListDownloader {
     @GET
     @Produces("text/csv")
     fun download(): String {
-        val generator = SupportSkillGeneralListGenerator(
+        val generator = SupportSkillListGenerator(
             HtmlFetcher.fetch(URI(uri)),
             "アイドルの絆・約束リカバー・おやすみブースト・トラブルガード・体力サポート",
             SupportSkillGeneralConverter()

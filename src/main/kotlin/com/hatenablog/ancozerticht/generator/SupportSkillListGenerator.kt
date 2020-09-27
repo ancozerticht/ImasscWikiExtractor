@@ -1,20 +1,19 @@
 package com.hatenablog.ancozerticht.generator
 
 import com.hatenablog.ancozerticht.converter.ChartElementConverter
-import com.hatenablog.ancozerticht.entity.SupportSkill
 import com.hatenablog.ancozerticht.translator.HierarchyReconstructor
 import com.hatenablog.ancozerticht.translator.MissingCellComplementor
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class SupportSkillGeneralListGenerator<T>(
+class SupportSkillListGenerator<T>(
     private val document: Document, private val chartTitle: String,
     private val converter: ChartElementConverter<T>
 ) {
     fun generate(): List<T> {
         val contents = document.selectFirst("#content")?.children() ?: return emptyList()
         val contentsGroupedByHeader = reconstruct(contents)
-        return getSupportSkillQuickList(contentsGroupedByHeader)
+        return getSupportSkillList(contentsGroupedByHeader)
     }
 
     private fun reconstruct(contents: List<Element>): Map<Element, List<Element>> {
@@ -22,7 +21,7 @@ class SupportSkillGeneralListGenerator<T>(
         return reconstructor.reconstruct(contents)
     }
 
-    private fun getSupportSkillQuickList(contentsGroupedByHeader: Map<Element, List<Element>>): List<T> {
+    private fun getSupportSkillList(contentsGroupedByHeader: Map<Element, List<Element>>): List<T> {
         val supportSkillChart = contentsGroupedByHeader.entries
             .firstOrNull { it.key.text().startsWith("サポートスキル逆引き") }?.value
             ?.firstOrNull { it.text().startsWith(chartTitle) }
