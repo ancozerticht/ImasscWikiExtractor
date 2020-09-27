@@ -22,7 +22,7 @@ class SupportSkillQuickListDownloader() {
         val contents = fetch()
         val contentsGroupedByHeader = reconstruct(contents)
         val supportSkillQuickChart = getSupportSkillQuickList(contentsGroupedByHeader)
-        return "レアリティ,カード名,絆,マスタリ,お休み,体力,トラブル,約束\n" +
+        return "レアリティ,カード名,絆,約束,おやすみ,トラブル,体力\n" +
                 supportSkillQuickChart
                     .map { getCsvRow(it) }
                     .reduce { acc, s -> acc + "\n" + s }
@@ -41,21 +41,24 @@ class SupportSkillQuickListDownloader() {
 
     private fun getSupportSkillQuickList(contentsGroupedByHeader: Map<Element, List<Element>>): List<SupportSkill> {
         val key = contentsGroupedByHeader.keys
-            .first { it.text().startsWith("サポートスキル早見表") }
+            .first { it.text().startsWith("サポートスキル逆引き") }
         val quickChart = contentsGroupedByHeader.getOrElse(key, ::emptyList)
             .filter { it.hasClass("accordion-container") }
+            .first { it.text().startsWith("アイドルの絆・約束リカバー・おやすみブースト・トラブルガード・体力サポート") }
+            .selectFirst(".accordion-content")
+            .children()
         return quickChart
             .map { Pair(getChartHead(it), getChartBody(it)) }
             .flatMap { (head, body) ->
                 body.map { Pair(head, it) }
             }
             .map { (head, body) ->
-                SupportSkill(head, body[0], body[1], body[2], body[3], body[4], body[5], body[6])
+                SupportSkill(head, body[1], body[6], body[8], body[10], body[12], body[14])
             }
     }
 
     private fun getChartHead(chart: Element): String {
-        val head = chart.selectFirst("h3") ?: return ""
+        val head = chart.selectFirst("h4") ?: return ""
         return head.text().trim()
     }
 
@@ -73,7 +76,6 @@ class SupportSkillQuickListDownloader() {
 
     private fun getCsvRow(row: SupportSkill): String {
         return row.rarity + "," + row.cardName + "," + row.link + "," +
-                row.mastery + "," + row.rest + "," + row.strength + "," +
-                row.trouble + "," + row.promise
+                row.promise + "," + row.rest + "," + row.trouble + "," + row.strength
     }
 }

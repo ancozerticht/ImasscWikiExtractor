@@ -14,7 +14,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jsoup", "jsoup", "1.13.1")
-    providedCompile("javax", "javaee-api", "8.0.1")
+    compileOnly("javax", "javaee-api", "8.0.1")
 }
 
 tasks {
