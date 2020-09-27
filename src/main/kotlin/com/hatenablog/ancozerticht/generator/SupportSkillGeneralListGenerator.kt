@@ -1,13 +1,17 @@
 package com.hatenablog.ancozerticht.generator
 
+import com.hatenablog.ancozerticht.converter.ChartElementConverter
 import com.hatenablog.ancozerticht.entity.SupportSkill
 import com.hatenablog.ancozerticht.translator.HierarchyReconstructor
 import com.hatenablog.ancozerticht.translator.MissingCellComplementor
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
-class SupportSkillGeneralListGenerator(private val document: Document) {
-    fun generate(): List<SupportSkill> {
+class SupportSkillGeneralListGenerator<T>(
+    private val document: Document, private val chartTitle: String,
+    private val converter: ChartElementConverter<T>
+) {
+    fun generate(): List<T> {
         val contents = document.selectFirst("#content")?.children() ?: return emptyList()
         val contentsGroupedByHeader = reconstruct(contents)
         return getSupportSkillQuickList(contentsGroupedByHeader)
@@ -18,10 +22,10 @@ class SupportSkillGeneralListGenerator(private val document: Document) {
         return reconstructor.reconstruct(contents)
     }
 
-    private fun getSupportSkillQuickList(contentsGroupedByHeader: Map<Element, List<Element>>): List<SupportSkill> {
+    private fun getSupportSkillQuickList(contentsGroupedByHeader: Map<Element, List<Element>>): List<T> {
         val supportSkillChart = contentsGroupedByHeader.entries
             .firstOrNull { it.key.text().startsWith("サポートスキル逆引き") }?.value
-            ?.firstOrNull { it.text().startsWith("アイドルの絆・約束リカバー・おやすみブースト・トラブルガード・体力サポート") }
+            ?.firstOrNull { it.text().startsWith(chartTitle) }
             ?: return emptyList()
         val chartList = supportSkillChart
             .selectFirst(".accordion-container")
@@ -32,7 +36,7 @@ class SupportSkillGeneralListGenerator(private val document: Document) {
                 body.map { Pair(head, it) }
             }
             .map { (head, body) ->
-                SupportSkill(head, body[1], body[6], body[8], body[10], body[12], body[14])
+                converter.convert(head, body)
             }
     }
 
