@@ -27,7 +27,7 @@ class SupportSkillListGeneratorA<T>(
             ?.firstOrNull { it.text().startsWith(chartTitle) }
             ?: return emptyList()
         val chartList = supportSkillChart
-            .selectFirst(".accordion-container")
+            .selectFirst(".accordion-content")
             ?.children() ?: return emptyList()
         return chartList
             .map { Pair(getChartHead(it), getChartBody(it)) }
