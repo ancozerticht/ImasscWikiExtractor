@@ -5,4 +5,9 @@ data class SupportSkillOther (
     val cardName: String,
     val skill: String,
     val skillLv: String
-)
+) {
+    companion object {
+        val defaultObject: SupportSkillOther
+            get() = SupportSkillOther("", "", "", "")
+    }
+}
