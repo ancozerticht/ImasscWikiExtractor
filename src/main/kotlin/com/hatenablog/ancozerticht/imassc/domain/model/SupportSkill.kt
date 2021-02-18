@@ -1,4 +1,4 @@
-package com.hatenablog.ancozerticht.entity
+package com.hatenablog.ancozerticht.imassc.domain.model
 
 data class SupportSkill(
     val general: SupportSkillGeneral,

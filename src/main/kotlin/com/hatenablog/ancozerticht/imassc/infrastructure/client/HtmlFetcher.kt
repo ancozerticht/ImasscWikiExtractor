@@ -1,4 +1,4 @@
-package com.hatenablog.ancozerticht
+package com.hatenablog.ancozerticht.imassc.infrastructure.client
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document

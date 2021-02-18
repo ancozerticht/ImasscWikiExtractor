@@ -1,8 +1,8 @@
-package com.hatenablog.ancozerticht.combiner
+package com.hatenablog.ancozerticht.imassc.domain.combiner
 
-import com.hatenablog.ancozerticht.entity.SupportSkill
-import com.hatenablog.ancozerticht.entity.SupportSkillGeneral
-import com.hatenablog.ancozerticht.entity.SupportSkillOther
+import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkill
+import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkillGeneral
+import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkillOther
 
 class SupportSkillListCombiner {
     fun combine(generalList: List<SupportSkillGeneral>, otherList: List<SupportSkillOther>): List<SupportSkill> {

@@ -1,4 +1,4 @@
-package com.hatenablog.ancozerticht
+package com.hatenablog.ancozerticht.imassc.presentation.application
 
 import javax.ws.rs.ApplicationPath
 import javax.ws.rs.core.Application

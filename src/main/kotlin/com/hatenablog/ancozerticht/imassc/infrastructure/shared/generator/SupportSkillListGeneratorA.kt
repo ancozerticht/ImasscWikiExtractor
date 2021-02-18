@@ -1,8 +1,8 @@
-package com.hatenablog.ancozerticht.generator
+package com.hatenablog.ancozerticht.imassc.infrastructure.shared.generator
 
-import com.hatenablog.ancozerticht.converter.ChartElementConverter
-import com.hatenablog.ancozerticht.translator.HierarchyReconstructor
-import com.hatenablog.ancozerticht.translator.MissingCellComplementor
+import com.hatenablog.ancozerticht.imassc.infrastructure.shared.converter.ChartElementConverter
+import com.hatenablog.ancozerticht.imassc.infrastructure.shared.translator.HierarchyReconstructor
+import com.hatenablog.ancozerticht.imassc.infrastructure.shared.translator.MissingCellComplementor
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
