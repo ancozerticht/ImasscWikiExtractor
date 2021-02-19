@@ -2,12 +2,14 @@ package com.hatenablog.ancozerticht.imassc.presentation.controller
 
 import com.hatenablog.ancozerticht.imassc.application.dto.SupportSkillGeneral
 import com.hatenablog.ancozerticht.imassc.application.service.SupportSkillListService
+import javax.enterprise.context.Dependent
 import javax.inject.Inject
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
 
 @Path("support-skill-general")
+@Dependent
 class SupportSkillGeneralListController {
     @Inject
     private lateinit var service: SupportSkillListService
