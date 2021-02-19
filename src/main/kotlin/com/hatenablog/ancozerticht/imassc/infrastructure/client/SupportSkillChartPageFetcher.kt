@@ -8,7 +8,9 @@ import com.hatenablog.ancozerticht.imassc.infrastructure.shared.converter.Suppor
 import com.hatenablog.ancozerticht.imassc.infrastructure.shared.generator.SupportSkillListGeneratorA
 import com.hatenablog.ancozerticht.imassc.infrastructure.shared.generator.SupportSkillListGeneratorB
 import java.net.URI
+import javax.enterprise.context.Dependent
 
+@Dependent
 class SupportSkillChartPageFetcher: WikiChartRepository {
     companion object {
         private const val uri =
