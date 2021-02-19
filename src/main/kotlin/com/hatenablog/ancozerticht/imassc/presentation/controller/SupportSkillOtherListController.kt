@@ -1,7 +1,7 @@
 package com.hatenablog.ancozerticht.imassc.presentation.controller
 
 import com.hatenablog.ancozerticht.imassc.application.dto.SupportSkillOther
-import com.hatenablog.ancozerticht.imassc.application.service.SupportSkillOtherListService
+import com.hatenablog.ancozerticht.imassc.application.service.SupportSkillListService
 import javax.inject.Inject
 import javax.ws.rs.GET
 import javax.ws.rs.Path
@@ -10,12 +10,12 @@ import javax.ws.rs.Produces
 @Path("support-skill-other")
 class SupportSkillOtherListController {
     @Inject
-    private lateinit var downloader: SupportSkillOtherListService
+    private lateinit var service: SupportSkillListService
 
     @GET
     @Produces("text/csv")
     fun download(): String {
-        val supportSkillQuickChart = downloader.download()
+        val supportSkillQuickChart = service.getSupportSkillOtherList()
         return "レアリティ,カード名,スキル名,スキルLv\n" +
                 supportSkillQuickChart
                     .map { getCsvRow(it) }

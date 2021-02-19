@@ -10,12 +10,12 @@ import javax.ws.rs.Produces
 @Path("support-skill")
 class SupportSkillListController {
     @Inject
-    private lateinit var downloader: SupportSkillListService
+    private lateinit var service: SupportSkillListService
 
     @GET
     @Produces("text/csv")
     fun download(): String {
-        val supportSkillQuickChart = downloader.download()
+        val supportSkillQuickChart = service.getSupportSkillList()
 
         return "レアリティ,カード名,絆,約束,おやすみ,トラブル,体力,スキル名,スキルLv\n" +
                 supportSkillQuickChart

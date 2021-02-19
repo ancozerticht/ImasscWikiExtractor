@@ -13,7 +13,7 @@ class SupportSkillListService {
     @Inject
     private lateinit var repository: WikiChartRepository
 
-    fun download(): List<SupportSkill> {
+    fun getSupportSkillList(): List<SupportSkill> {
         val supportSkillGeneralQuickChart = repository.getSupportSkillGeneralChart()
         val supportSkillOtherQuickChart = repository.getSupportSkillOtherChart()
 
@@ -36,6 +36,33 @@ class SupportSkillListService {
                     it.other.skill,
                     it.other.skillLv
                 )
+            )
+        }
+    }
+
+    fun getSupportSkillGeneralList(): List<SupportSkillGeneral> {
+        val model = repository.getSupportSkillGeneralChart()
+        return model.map {
+            SupportSkillGeneral(
+                it.rarity,
+                it.cardName,
+                it.link,
+                it.promise,
+                it.rest,
+                it.trouble,
+                it.strength
+            )
+        }
+    }
+
+    fun getSupportSkillOtherList(): List<SupportSkillOther> {
+        val model = repository.getSupportSkillOtherChart()
+        return model.map {
+            SupportSkillOther(
+                it.rarity,
+                it.cardName,
+                it.skill,
+                it.skillLv
             )
         }
     }
