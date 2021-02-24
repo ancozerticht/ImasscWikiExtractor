@@ -1,6 +1,6 @@
 package com.hatenablog.ancozerticht.imassc.presentation.controller
 
-import com.hatenablog.ancozerticht.imassc.application.dto.SupportSkillOther
+import com.hatenablog.ancozerticht.imassc.application.dto.SupportSkillOtherList
 import com.hatenablog.ancozerticht.imassc.application.service.SupportSkillListService
 import javax.enterprise.context.Dependent
 import javax.inject.Inject
@@ -19,12 +19,12 @@ class SupportSkillOtherListController {
     fun download(): String {
         val supportSkillQuickChart = service.getSupportSkillOtherList()
         return "レアリティ,カード名,スキル名,スキルLv\n" +
-                supportSkillQuickChart
+                supportSkillQuickChart.supportSkillOtherList
                     .map { getCsvRow(it) }
                     .reduce { acc, s -> acc + "\n" + s }
     }
 
-    private fun getCsvRow(row: SupportSkillOther): String {
+    private fun getCsvRow(row: SupportSkillOtherList.SupportSkillOther): String {
         return row.rarity + "," + row.cardName + "," + row.skill + "," + row.skillLv
     }
 }
