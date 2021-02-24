@@ -1,4 +1,4 @@
-package com.hatenablog.ancozerticht.imassc.infrastructure.shared.converter
+package com.hatenablog.ancozerticht.imassc.infrastructure.client.converter
 
 import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkillGeneral
 

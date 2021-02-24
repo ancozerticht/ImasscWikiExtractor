@@ -1,4 +1,4 @@
-package com.hatenablog.ancozerticht.imassc.infrastructure.shared.translator
+package com.hatenablog.ancozerticht.imassc.infrastructure.client.translator
 
 import org.jsoup.nodes.Element
 

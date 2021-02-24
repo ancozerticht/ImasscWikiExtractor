@@ -3,10 +3,10 @@ package com.hatenablog.ancozerticht.imassc.infrastructure.client
 import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkillGeneral
 import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkillOther
 import com.hatenablog.ancozerticht.imassc.domain.repository.WikiChartRepository
-import com.hatenablog.ancozerticht.imassc.infrastructure.shared.converter.SupportSkillGeneralConverter
-import com.hatenablog.ancozerticht.imassc.infrastructure.shared.converter.SupportSkillOtherConverter
-import com.hatenablog.ancozerticht.imassc.infrastructure.shared.generator.SupportSkillListGeneratorA
-import com.hatenablog.ancozerticht.imassc.infrastructure.shared.generator.SupportSkillListGeneratorB
+import com.hatenablog.ancozerticht.imassc.infrastructure.client.converter.SupportSkillGeneralConverter
+import com.hatenablog.ancozerticht.imassc.infrastructure.client.converter.SupportSkillOtherConverter
+import com.hatenablog.ancozerticht.imassc.infrastructure.client.generator.SupportSkillListGeneratorA
+import com.hatenablog.ancozerticht.imassc.infrastructure.client.generator.SupportSkillListGeneratorB
 import java.net.URI
 import javax.enterprise.context.Dependent
 
