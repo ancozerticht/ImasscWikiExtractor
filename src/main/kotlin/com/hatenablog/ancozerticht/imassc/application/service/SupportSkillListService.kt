@@ -7,15 +7,14 @@ import javax.enterprise.context.Dependent
 import javax.inject.Inject
 
 @Dependent
-class SupportSkillListService {
-    @Inject
-    private lateinit var repository: WikiChartRepository
-
+class SupportSkillListService @Inject constructor(
+    private val repository: WikiChartRepository,
+    private val combiner: SupportSkillListCombiner
+) {
     fun getSupportSkillList(): SupportSkillList {
         val supportSkillGeneralQuickChart = repository.getSupportSkillGeneralChart()
         val supportSkillOtherQuickChart = repository.getSupportSkillOtherChart()
 
-        val combiner = SupportSkillListCombiner()
         val model = combiner.combine(supportSkillGeneralQuickChart, supportSkillOtherQuickChart)
         val supportSkillList = SupportSkillList()
         model.forEach {

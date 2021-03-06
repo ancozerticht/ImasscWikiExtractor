@@ -3,7 +3,9 @@ package com.hatenablog.ancozerticht.imassc.domain.service
 import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkill
 import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkillGeneral
 import com.hatenablog.ancozerticht.imassc.domain.model.SupportSkillOther
+import javax.enterprise.context.Dependent
 
+@Dependent
 class SupportSkillListCombiner {
     fun combine(generalList: List<SupportSkillGeneral>, otherList: List<SupportSkillOther>): List<SupportSkill> {
         return generalList.map {

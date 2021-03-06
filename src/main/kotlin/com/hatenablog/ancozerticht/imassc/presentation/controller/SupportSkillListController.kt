@@ -10,10 +10,9 @@ import javax.ws.rs.Produces
 
 @Path("support-skill")
 @Dependent
-class SupportSkillListController {
-    @Inject
-    private lateinit var service: SupportSkillListService
-
+class SupportSkillListController @Inject constructor(
+    private val service: SupportSkillListService
+) {
     @GET
     @Produces("text/csv")
     fun download(): String {
