@@ -41,8 +41,8 @@ class SupportSkillListGeneratorB<T>(
     }
 
     private fun getChartBody(chart: Element): List<List<String>> {
-        val body = chart.selectFirst("tbody") ?: return emptyList()
-        val rows = body.children().filter { tr ->
+        val body = chart.select("tbody") ?: return emptyList()
+        val rows = body.flatMap { it.children() }.filter { tr ->
             tr.children().any { it.`is`("td") }
         }
         val complementor = MissingCellComplementor()

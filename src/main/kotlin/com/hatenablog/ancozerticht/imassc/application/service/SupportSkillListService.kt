@@ -1,8 +1,8 @@
 package com.hatenablog.ancozerticht.imassc.application.service
 
 import com.hatenablog.ancozerticht.imassc.application.dto.*
-import com.hatenablog.ancozerticht.imassc.domain.service.SupportSkillListCombiner
 import com.hatenablog.ancozerticht.imassc.domain.repository.WikiChartRepository
+import com.hatenablog.ancozerticht.imassc.domain.service.SupportSkillListCombiner
 import javax.enterprise.context.Dependent
 import javax.inject.Inject
 
@@ -62,5 +62,124 @@ class SupportSkillListService @Inject constructor(
             ))
         }
         return supportSkillOtherList
+    }
+
+    fun getSupportSkillMasteryVoList(): SupportSkillMasteryList {
+        val model = repository.getSupportSkillMasteryVoChart()
+        val supportSkillMasteryVoList = SupportSkillMasteryList()
+        model.forEach {
+            supportSkillMasteryVoList.addSupportSkillMastery(SupportSkillMasteryList.SupportSkillMastery(
+                it.rarity,
+                it.cardName,
+                it.idea,
+                it.inspiration,
+                it.action,
+                it.skillLv,
+                it.cardLvReachingToSkillMax
+            ))
+        }
+        return supportSkillMasteryVoList
+    }
+
+    fun getSupportSkillMasteryDaList(): SupportSkillMasteryList {
+        val model = repository.getSupportSkillMasteryDaChart()
+        val supportSkillMasteryDaList = SupportSkillMasteryList()
+        model.forEach {
+            supportSkillMasteryDaList.addSupportSkillMastery(SupportSkillMasteryList.SupportSkillMastery(
+                it.rarity,
+                it.cardName,
+                it.idea,
+                it.inspiration,
+                it.action,
+                it.skillLv,
+                it.cardLvReachingToSkillMax
+            ))
+        }
+        return supportSkillMasteryDaList
+    }
+
+    fun getSupportSkillMasteryViList(): SupportSkillMasteryList {
+        val model = repository.getSupportSkillMasteryViChart()
+        val supportSkillMasteryViList = SupportSkillMasteryList()
+        model.forEach {
+            supportSkillMasteryViList.addSupportSkillMastery(SupportSkillMasteryList.SupportSkillMastery(
+                it.rarity,
+                it.cardName,
+                it.idea,
+                it.inspiration,
+                it.action,
+                it.skillLv,
+                it.cardLvReachingToSkillMax
+            ))
+        }
+        return supportSkillMasteryViList
+    }
+
+    fun getSupportSkillMasteryMeList(): SupportSkillMasteryList {
+        val model = repository.getSupportSkillMasteryMeChart()
+        val supportSkillMasteryMeList = SupportSkillMasteryList()
+        model.forEach {
+            supportSkillMasteryMeList.addSupportSkillMastery(SupportSkillMasteryList.SupportSkillMastery(
+                it.rarity,
+                it.cardName,
+                it.idea,
+                it.inspiration,
+                it.action,
+                it.skillLv,
+                it.cardLvReachingToSkillMax
+            ))
+        }
+        return supportSkillMasteryMeList
+    }
+
+    fun getSupportSkillMasterySpList(): SupportSkillMasteryList {
+        val model = repository.getSupportSkillMasterySpChart()
+        val supportSkillMasterySpList = SupportSkillMasteryList()
+        model.forEach {
+            supportSkillMasterySpList.addSupportSkillMastery(SupportSkillMasteryList.SupportSkillMastery(
+                it.rarity,
+                it.cardName,
+                it.idea,
+                it.inspiration,
+                it.action,
+                it.skillLv,
+                it.cardLvReachingToSkillMax
+            ))
+        }
+        return supportSkillMasterySpList
+    }
+
+    fun getSupportSkillMasteryStaminaList(): SupportSkillMasteryList {
+        val model = repository.getSupportSkillMasteryStaminaChart()
+        val supportSkillMasteryStaminaList = SupportSkillMasteryList()
+        model.forEach {
+            supportSkillMasteryStaminaList.addSupportSkillMastery(SupportSkillMasteryList.SupportSkillMastery(
+                it.rarity,
+                it.cardName,
+                it.idea,
+                it.inspiration,
+                it.action,
+                it.skillLv,
+                it.cardLvReachingToSkillMax
+            ))
+        }
+        return supportSkillMasteryStaminaList
+    }
+
+    fun getSupportSkillUnitMasteryList(): SupportSkillUnitMasteryList {
+        val model = repository.getSupportSkillUnitMasteryChart()
+        val supportSkillUnitMasteryList = SupportSkillUnitMasteryList()
+        model.forEach {
+            supportSkillUnitMasteryList.addSupportSkillUnitMastery(SupportSkillUnitMasteryList.SupportSkillUnitMastery(
+                it.rarity,
+                it.cardName,
+                it.idea,
+                it.inspiration,
+                it.increasingStatus,
+                it.skillLv,
+                it.cardLvReachingToSkillMax
+            ))
+        }
+        return supportSkillUnitMasteryList
     }
 }
