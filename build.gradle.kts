@@ -29,7 +29,7 @@ tasks {
     }
 }
 
-val glassFishHome = "C:/glassfish5"
+val glassFishHome = "C:/glassfish5/glassfish"
 val asadmin = glassFishHome + (if(isWindows()) "/bin/asadmin.bat" else "/bin/asadmin")
 val domain = "domain1"
 fun isWindows(): Boolean {
